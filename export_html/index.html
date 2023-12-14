@@ -28,7 +28,7 @@
 
         function update_div() {
             // Call an exported function:
-            let result = wasmInstance.exports.my_exported_func();
+            let result = wasmInstance.exports.returning_a_string();
             document.getElementById("results_div").innerText = "Result from rust: " + result;
             // or access the buffer contents of an exported memory:
             // const i32 = new Uint32Array(obj.instance.exports.memory.buffer);
