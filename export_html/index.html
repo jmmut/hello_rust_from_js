@@ -13,22 +13,26 @@
             height: 100%;
             overflow: hidden;
             position: absolute;
-            background: black;
+            /*background: black;*/
             z-index: 0;
         }
     </style>
 </head>
 
 <body>
+    <div id="main_div"></div>
+    <button id="main_button">click me</button>
     <script>
         "use strict";
-        alert("asdf");
+        function addListener(dom_id, event_type, callback) {
+            let elem = document.getElementById(dom_id)
+            elem.addEventListener(event_type, event => { callback(event); });
+        }
+        addListener("main_button", "click", update_div);
+        function update_div() {
+            document.getElementById("main_div").innerText = "clicked";
+        }
     </script>
-
-<!--    <canvas id="glcanvas" tabindex='1'></canvas>-->
-    <!-- Taken from minified and statically hosted version of https://github.com/not-fl3/macroquad/blob/master/js/mq_js_bundle.js -->
-<!--    <script src="./mq_js_bundle.js"></script>-->
-<!--    <script>load("hello-rust-from-js.wasm");</script> &lt;!&ndash; Your compiled wasm file &ndash;&gt;-->
 </body>
 
 </html>
