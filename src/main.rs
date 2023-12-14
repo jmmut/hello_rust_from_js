@@ -1,6 +1,5 @@
-use hello_rust_from_js::my_exported_func;
-
+use hello_rust_from_js::hello_internal;
 
 pub fn main() {
-    println!("result: {}", my_exported_func());
+    println!("{}", hello_internal("from rust main"));
 }

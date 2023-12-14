@@ -1,14 +1,10 @@
-use std::ptr;
+use wasm_bindgen::prelude::*;
 
-#[no_mangle]
-pub fn my_exported_func() -> f64 {
-    return 1.618;
+pub fn hello_internal(name: &str) -> String {
+    format!("Hello from rust, {}!", name)
 }
 
-#[no_mangle]
-pub fn returning_a_string() -> (*const String, usize) {
-    let s = format!("interpolated {}", my_exported_func());
-    let len = s.len();
-    let ptr = ptr::addr_of!(s);
-    (ptr, len)
+#[wasm_bindgen]
+pub fn hello(name: &str) -> JsValue {
+    JsValue::from_str(&hello_internal(name))
 }
