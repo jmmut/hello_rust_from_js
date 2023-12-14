@@ -6,37 +6,15 @@
 </head>
 
 <body>
-    <div id="loading_status_div">WebAssembly not loaded</div>
     <div id="results_div"></div>
-    <button id="main_button" disabled>click me</button>
     <script>
         "use strict";
-        function addListener(dom_id, event_type, callback) {
-            document.getElementById(dom_id).addEventListener(event_type, callback);
-        }
-        addListener("main_button", "click", update_div);
-        let importObject = {};
-        let wasmInstance;
-        document.getElementById("loading_status_div").innerText = "Attempting to load WebAssembly";
-        WebAssembly.instantiateStreaming(fetch("hello-rust-from-js.wasm"), importObject).then(
+        WebAssembly.instantiateStreaming(fetch("hello-rust-from-js.wasm"), {}).then(
             (obj) => {
-                wasmInstance = obj.instance;
-                document.getElementById("loading_status_div").innerText = "WebAssembly loaded";
-                document.getElementById("main_button").removeAttribute("disabled");
+                let result = obj.instance.exports.my_exported_func();
+                document.getElementById("results_div").innerText = "Result from rust: " + result;
             },
         );
-
-        function update_div() {
-            // Call an exported function:
-            let result = wasmInstance.exports.my_exported_func();
-            document.getElementById("results_div").innerText = "Result from rust: " + result;
-            // or access the buffer contents of an exported memory:
-            // const i32 = new Uint32Array(obj.instance.exports.memory.buffer);
-
-            // or access the elements of an exported table:
-            // const table = obj.instance.exports.table;
-            // console.log(table.get(0)());
-        }
     </script>
 </body>
 
