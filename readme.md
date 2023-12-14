@@ -26,7 +26,7 @@ binary for itch.io, but you also have the [recompile_and_host.sh](recompile_and_
 run it on a local web server (which we installed in the setup):
 
 ```
-./recompile_and_host.sh
+./local_build_and_run.sh
 ```
 
 Now open the "addr" address in your browser, usually http://127.0.0.1:4000.
