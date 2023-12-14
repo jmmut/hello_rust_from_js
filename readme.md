@@ -8,26 +8,30 @@ Try it out in https://jmmut.itch.io/hello-rust-from-js.
 
 ## Running locally
 
-You can look at the [github actions](.github/workflows/release.yml) where I build the WebAssembly binary
-for itch.io, but here are the steps if you want to run them manually:
-
+### Setup (do this only once)
 First, clone this repo, and [install rust](https://www.rust-lang.org/tools/install).
-Then add the WebAssembly target for the compiler. You only need to do this once:
+
+Then add the WebAssembly target for the compiler:
 ```
 rustup target add wasm32-unknown-unknown
 ```
+And install a local web server:
+```
+cargo install basic-http-server
+```
 
-Now, each time you want to compile the project:
+### Running
+You can look at the [github actions](.github/workflows/release.yml) where I build the WebAssembly
+binary for itch.io, but you also have the [recompile_and_host.sh](recompile_and_host.sh) script to
+run it on a local web server (which we installed in the setup):
+
 ```
-cargo build -r --target wasm32-unknown-unknown
-mkdir -p built_html
-# the folder export_html contains the html wrapper so that the wasm can be used
-cp -r export_html/* built_html/
-cp -r target/wasm32-unknown-unknown/release/*.wasm built_html/
+./recompile_and_host.sh
 ```
-and run it in a local web server:
-```
-cargo install basic-http-server  # you only need to run this once
-basic-http-server built_html/
-```
+
 Now open the "addr" address in your browser, usually http://127.0.0.1:4000.
+
+## Learning resources
+
+- https://surma.dev/things/rust-to-webassembly/
+- https://developer.mozilla.org/en-US/docs/WebAssembly/Exported_functions
